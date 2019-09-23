@@ -13,7 +13,7 @@ import './components/js-timestamp.component';
 import './components/modal.component';
 
 import React from 'react';
-import { render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 
 // Lazily import pages
 const pages = [
@@ -94,6 +94,7 @@ const pages = [
   },
   {
     isVue: false,
+    isServerSideRendered: true,
     containerId: 'hello-react',
     lazyComponent: () => import('./pages/HelloReact')
   }
@@ -105,7 +106,8 @@ for (const page of pages) {
     page.lazyComponent().then(module => {
       if (!page.isVue) {
         const Component = module.default;
-        render(<Component {...SAILS_LOCALS} />, container);
+        const renderMethod = page.isServerSideRendered ? hydrate : render;
+        renderMethod(<Component {...SAILS_LOCALS} />, container);
       }
     });
   }

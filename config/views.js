@@ -1,3 +1,6 @@
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+
 /**
  * View Engine Configuration
  * (sails.config.views)
@@ -36,6 +39,34 @@ module.exports.views = {
   *                                                                          *
   ***************************************************************************/
 
-  layout: 'layouts/layout'
+  layout: 'layouts/layout',
+
+  locals: {
+
+    getSsrStyleSheet: function() {
+      return this.res.locals.ssrStyleSheet;
+    },
+
+    requireAndRenderString: function (containerId, path) {
+
+      this.res.locals.ssrStyleSheet = `<link rel="stylesheet" href="/ssr/assets/js/pages/${path}/index.js.css">`;
+
+      const { component } = require(`../.tmp/public/ssr/assets/js/pages/${path}/index.js`);
+
+      const sailsLocalsScript = this.res.locals.exposeLocalsToBrowser({
+        dontUnescapeOnClient: true
+      });
+
+      const SAILS_LOCALS = eval(
+        sailsLocalsScript.substring(
+          sailsLocalsScript.indexOf('>') + 1,
+          sailsLocalsScript.lastIndexOf('<')
+        )
+        .replace('window.SAILS_LOCALS =', 'return')
+      );
+
+      return `<div id="${containerId}">${ReactDOMServer.renderToString(React.createElement(component.default, SAILS_LOCALS))}</div>`;
+    }
+  }
 
 };
