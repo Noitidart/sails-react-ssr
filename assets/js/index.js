@@ -91,6 +91,11 @@ const pages = [
     isVue: true,
     containerId: 'faq',
     lazyComponent: () => import('./pages/faq.page')
+  },
+  {
+    isVue: false,
+    containerId: 'hello-react',
+    lazyComponent: () => import('./pages/HelloReact')
   }
 ];
 
