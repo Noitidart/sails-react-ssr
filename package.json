@@ -5,21 +5,32 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@babel/runtime": "^7.6.0",
+    "@sailshq/connect-redis": "^3.2.1",
+    "@sailshq/lodash": "^3.10.3",
+    "@sailshq/socket.io-redis": "^5.2.0",
+    "lodash": "^4.17.15",
     "sails": "^1.2.3",
     "sails-hook-apianalytics": "^2.0.3",
     "sails-hook-organics": "^0.16.0",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^2.0.0",
-    "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "@sailshq/lodash": "^3.10.3"
+    "sails-hook-sockets": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
     "eslint": "5.16.0",
     "htmlhint": "0.11.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
     "lesshint": "6.3.6",
-    "grunt": "1.0.4",
-    "sails-hook-grunt": "^4.0.0"
+    "mini-css-extract-plugin": "^0.8.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.40.2"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
